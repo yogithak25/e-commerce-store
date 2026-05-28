@@ -221,6 +221,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="1 item in your shopping cart"
               color="inherit"
+	      onClick={() => navigate('/cart')}
             >
               <Badge badgeContent={1} color="error">
                 <ShoppingCartIcon />

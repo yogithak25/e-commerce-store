@@ -1,6 +1,6 @@
 package com.ecommerce.cart.controller;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,8 @@ import reactor.core.publisher.Mono;
 @RestController
 public class CartController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CartController.class);
+    private static final Logger LOG =
+        LoggerFactory.getLogger(CartController.class);
 
     private ReactiveRedisTemplate<String, Cart> redisTemplate;
 
@@ -37,7 +38,7 @@ public class CartController {
 
     @RequestMapping("/")
     public String index() {
-        return "{ \"name\": \"Cart API\", \"version\": 1.0.0} ";
+        return "{ \"name\": \"Cart API\", \"version\": 1.0.0}";
     }
 
     @GetMapping("/cart")
@@ -52,19 +53,68 @@ public class CartController {
     }
 
     @PostMapping("/cart")
-    Mono<Void> create(@RequestBody Mono<Cart> cart) {
-        return cart.doOnNext(c -> {
-            LOG.info("Adding cart to Redis: {}", c);
-            float total = 0;
-            if (c.getCustomerId() == null) {
-                LOG.error("Customer Id is missing.");
-                return;
-            }
-            for (CartItem item : c.getItems()) {
-                total += item.getPrice() * item.getQuantity();
-            }
-            c.setTotal(total);
-            cartOps.set(c.getCustomerId(), c).subscribe();
-        }).then();
+    public Mono<Boolean> create(@RequestBody Mono<Cart> cartMono) {
+
+        return cartMono.flatMap(newCart -> {
+
+            LOG.info("Incoming cart: {}", newCart);
+
+            return cartOps.get(newCart.getCustomerId())
+                .defaultIfEmpty(new Cart())
+                .flatMap(existingCart -> {
+
+                    existingCart.setCustomerId(
+                        newCart.getCustomerId()
+                    );
+
+                    if (existingCart.getItems() == null) {
+                        existingCart.setItems(new ArrayList<>());
+                    }
+
+                    if (newCart.getItems() != null) {
+
+                        for (CartItem newItem : newCart.getItems()) {
+
+                            boolean itemExists = false;
+
+                            for (CartItem existingItem :
+                                 existingCart.getItems()) {
+
+                                if (existingItem.getSku()
+                                    .equals(newItem.getSku())) {
+
+                                    existingItem.setQuantity(
+                                        existingItem.getQuantity()
+                                        + newItem.getQuantity()
+                                    );
+
+                                    itemExists = true;
+                                    break;
+                                }
+                            }
+
+                            if (!itemExists) {
+                                existingCart.getItems().add(newItem);
+                            }
+                        }
+                    }
+
+                    float total = 0;
+
+                    for (CartItem item : existingCart.getItems()) {
+                        total += item.getPrice()
+                                 * item.getQuantity();
+                    }
+
+                    existingCart.setTotal(total);
+
+                    LOG.info("Saving cart: {}", existingCart);
+
+                    return cartOps.set(
+                        existingCart.getCustomerId(),
+                        existingCart
+                    );
+                });
+        });
     }
 }
