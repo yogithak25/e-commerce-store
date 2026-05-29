@@ -63,12 +63,13 @@ jobs:
 
     # STEP 8 - Update Helm values.yaml
     - name: Update Helm Chart Image Tag
-      working-directory: ./helm-charts/frontend
+      working-directory: .
       run: |
-        sed -i 's/tag:.*/tag: "v1.'"${{ github.run_number }}"'"/' values.yaml
+        sed -i 's/tag:.*/tag: "v1.'"${{ github.run_number }}"'"/' helm-charts/frontend/values.yaml
 
     # STEP 9 - Commit Updated Helm Chart
     - name: Commit Helm Chart Changes
+      working-directory: .
       run: |
         git config --global user.email "yogithak25@gmail.com"
         git config --global user.name "yogithak25"
