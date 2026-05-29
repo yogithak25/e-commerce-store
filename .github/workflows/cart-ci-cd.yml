@@ -1,5 +1,4 @@
 name: Cart Service CI/CD
-
 on:
   push:
     branches:
