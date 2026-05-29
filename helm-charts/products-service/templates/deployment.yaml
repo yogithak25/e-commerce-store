@@ -47,6 +47,7 @@ spec:
                 secretKeyRef:
                   name: mongodb
                   key: mongodb-root-password
+
             - name: DATABASE
               value: e-commerce
 
