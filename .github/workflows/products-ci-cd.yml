@@ -39,7 +39,7 @@ jobs:
 
     # STEP 4 - Run Tests
     - name: Run Unit Tests
-      run: npm test || echo "No tests configured"
+      run: npm test --if-present
 
     # STEP 5 - Build Application
     - name: Build NodeJS Application
