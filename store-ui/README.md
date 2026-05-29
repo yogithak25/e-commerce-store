@@ -1,4 +1,4 @@
-# Web Store Front UI
+## Web Store Front UI
 A web front end for e-commerce application. Built using React, MUI.
 
 ## Prerequisites
