@@ -47,11 +47,16 @@ spec:
                 secretKeyRef:
                   name: mongodb
                   key: mongodb-root-password
-            - name: MONGO_URI
-              value: "mongodb://root:wpFcZ5cxXN@mongodb:27017/"
-
             - name: DATABASE
               value: e-commerce
+
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - |
+              export MONGO_URI="mongodb://root:${MONGO_PASSWORD}@mongodb:27017/"
+              node server.js
+
 
           ports:
             - name: http
