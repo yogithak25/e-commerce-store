@@ -48,7 +48,7 @@ spec:
                   name: mongodb
                   key: mongodb-root-password
             - name: MONGO_URI
-              value: "mongodb://root:gWcr0wUFqI@mongodb:27017/"
+              value: "mongodb://root:wpFcZ5cxXN@mongodb:27017/"
 
             - name: DATABASE
               value: e-commerce
