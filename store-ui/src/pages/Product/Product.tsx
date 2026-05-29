@@ -48,7 +48,7 @@ const Product = () => {
     // run on load
     React.useEffect(() => {
         getProductByVariantSku(id).then(result => setProduct(result))
-    }, [])
+    }, [id])
 
     return (
         <Box sx={{ p: 1 }}>
@@ -62,7 +62,7 @@ const Product = () => {
                                 <Typography variant="h5">{product?.title}</Typography>
                             </Grid>
                             <Grid item>
-                                <img src={product?.thumbnail} width="200"></img>
+                                <img src={product?.thumbnail} alt="product" width="200"></img>
                             </Grid>
                         </Grid>
                     </Grid>

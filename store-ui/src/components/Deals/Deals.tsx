@@ -17,15 +17,15 @@ const Deals = () => {
     const navigate = useNavigate();
 
     const [deals, setDeals] = useState([])
-    const [error, setError] = useState(null)
+    const [, setError] = useState<Error | null>(null)
 
     const loadDeals = async () => {
         try {
             const response = await axiosClient.get(productsUrl + 'deals')
             setDeals(response.data)
             setError(null)
-        } catch (err: any) {
-            setError(err)
+        } catch(err) {
+            setError(err as Error)
         }
     }
 

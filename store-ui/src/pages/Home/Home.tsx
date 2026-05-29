@@ -7,10 +7,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Deals from '../../components/Deals/Deals'
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   
   return (
     <div>

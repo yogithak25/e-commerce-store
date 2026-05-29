@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
 interface GlobalContextInterface {
   data: any;
