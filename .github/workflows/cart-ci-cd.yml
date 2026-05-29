@@ -50,7 +50,7 @@ jobs:
 
     # STEP 5 - Build Spring Boot Application
     - name: Build JAR File
-      run: ./gradlew build
+      run: ./gradlew clean build
 
     # STEP 6 - DockerHub Login
     - name: Login to DockerHub
