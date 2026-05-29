@@ -43,7 +43,7 @@ jobs:
 
     # STEP 5 - Build Application
     - name: Build NodeJS Application
-      run: npm run build || echo "No build step configured"
+      run: npm run build --if-present
 
     # STEP 6 - DockerHub Login
     - name: Login to DockerHub
