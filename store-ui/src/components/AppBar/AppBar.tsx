@@ -189,7 +189,7 @@ export default function PrimarySearchAppBar() {
             noWrap
             sx={{ color: 'white', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <img src="logo.png" width="32" height="32" alt="logo" />
-            &nbsp;e-commerce store
+            &nbsp;E-commerce store
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ width: '45%' }}>
