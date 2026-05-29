@@ -54,7 +54,7 @@ jobs:
     - name: Build Docker Image
       run: |
         docker build \
-        -t $IMAGE_NAME:v1.${{ github.run_number }}
+        -t $IMAGE_NAME:v1.${{ github.run_number }} .
 
     # STEP 7 - Push Docker Image
     - name: Push Docker Image
