@@ -42,7 +42,7 @@ jobs:
 
     # STEP 4 - Run Unit Tests
     - name: Run Unit Tests
-      run: npm test -- --watchAll=false || echo "No tests configured"
+      run: npm test -- --watchAll=false || echo "No Unit tests configured"
 
     # STEP 5 - Run Frontend Build Validation
     - name: Build React Application
